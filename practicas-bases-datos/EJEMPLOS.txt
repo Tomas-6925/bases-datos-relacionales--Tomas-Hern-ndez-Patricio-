@@ -1,0 +1,111 @@
+EJEMPLOS:
+
+
+MariaDB [(none)]> CREATE DATABASE upem;
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [(none)]> USE upem;
+Database changed
+MariaDB [upem]> CREATE TABLE alumnos (id INT PRIMARY KEY,nombre VARCHAR(50),apellido VARCHAR(50),edad INT,semestre ITN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1
+MariaDB [upem]> CREATE TABLE alumnos (id INT PRIMARY KEY,nombre VARCHAR(50),apellido VARCHAR(50),edad INT,semestre INT);
+Query OK, 0 rows affected (0.011 sec)
+
+MariaDB [upem]> INSERT INTO alumnos (id, nombre, apellido, edad, semestre)
+    -> VALUES
+    -> (1, 'Ana', 'López', 18, 2),
+    -> (2, 'Carlos', 'Pérez', 19, 4),
+    -> (3, 'María', 'García', 18, 2);
+Query OK, 3 rows affected (0.020 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [upem]> SELECT * FROM alumnos;
++----+--------+----------+------+----------+
+| id | nombre | apellido | edad | semestre |
++----+--------+----------+------+----------+
+|  1 | Ana    | López    |   18 |        2 |
+|  2 | Carlos | Pérez    |   19 |        4 |
+|  3 | María  | García   |   18 |        2 |
++----+--------+----------+------+----------+
+3 rows in set (0.007 sec)
+
+MariaDB [upem]> SELECT nombre, apellido
+    -> FROM alumnos;
++--------+----------+
+| nombre | apellido |
++--------+----------+
+| Ana    | López    |
+| Carlos | Pérez    |
+| María  | García   |
++--------+----------+
+3 rows in set (0.000 sec)
+
+MariaDB [upem]> SELECT *
+    -> FROM alumnos
+    -> WHERE semestre = 2;
++----+--------+----------+------+----------+
+| id | nombre | apellido | edad | semestre |
++----+--------+----------+------+----------+
+|  1 | Ana    | López    |   18 |        2 |
+|  3 | María  | García   |   18 |        2 |
++----+--------+----------+------+----------+
+2 rows in set (0.004 sec)
+
+MariaDB [upem]> UPDATE alumnos
+    -> SET edad = 19
+    -> WHERE id = 1;
+Query OK, 1 row affected (0.004 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [upem]> SELECT *
+    -> FROM alumnos
+    -> WHERE id = 1;
++----+--------+----------+------+----------+
+| id | nombre | apellido | edad | semestre |
++----+--------+----------+------+----------+
+|  1 | Ana    | López    |   19 |        2 |
++----+--------+----------+------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [upem]> UPDATE alumnos
+    -> SET edad = 20,
+    -> semestre = 3
+    -> WHERE id = 1;
+Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [upem]> SELECT * FROM alumnos;
++----+--------+----------+------+----------+
+| id | nombre | apellido | edad | semestre |
++----+--------+----------+------+----------+
+|  1 | Ana    | López    |   20 |        3 |
+|  2 | Carlos | Pérez    |   19 |        4 |
+|  3 | María  | García   |   18 |        2 |
++----+--------+----------+------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [upem]> SELECT * FROM alumnos;
++----+--------+----------+------+----------+
+| id | nombre | apellido | edad | semestre |
++----+--------+----------+------+----------+
+|  1 | Ana    | López    |   20 |        3 |
+|  2 | Carlos | Pérez    |   19 |        4 |
+|  3 | María  | García   |   18 |        2 |
++----+--------+----------+------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [upem]> DELETE FROM alumnos
+    -> WHERE id = 3;
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [upem]> SELECT * FROM alumnos;
++----+--------+----------+------+----------+
+| id | nombre | apellido | edad | semestre |
++----+--------+----------+------+----------+
+|  1 | Ana    | López    |   20 |        3 |
+|  2 | Carlos | Pérez    |   19 |        4 |
++----+--------+----------+------+----------+
+2 rows in set (0.000 sec)
+
+MariaDB [upem]> SELECT * FROM alumnos INTO OUTFILE 'C:/xampp/mysql/data/alumnos.txt';
+Query OK, 2 rows affected, 1 warning (0.003 sec)
